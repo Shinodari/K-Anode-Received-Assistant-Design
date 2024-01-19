@@ -1,3 +1,21 @@
 @startuml UseCase
+left to right direction
+rectangle K-Anode-Received-Assistant {
+    usecase "Receive K-Anode" as receive
+    usecase "Verify Received" as verify
+    usecase "Record Data" as record
+    usecase "View Record" as view
+    usecase "Export Data" as export
+    usecase "Import Balance from WMS" as import
+}
+User --> receive
 
+receive <.. verify : <<Extend>>
+verify ..> import : <<Include>>
+
+record .up.> receive : <<Extend>>
+record .up.> verify : <<Extend>>
+
+User --> view
+User --> export
 @enduml
