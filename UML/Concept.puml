@@ -9,7 +9,6 @@ rectangle K-Anode-Received-Assistant {
     usecase "Import Balance from WMS" as import
 }
 User --> receive
-User --> verify
 
 receive ..> verify : <<Include>>
 verify ..> import : <<Include>>
