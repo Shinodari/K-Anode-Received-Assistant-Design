@@ -13,6 +13,7 @@ User --> receive
 receive ..> verify : <<Include>>
 verify ..> import : <<Include>>
 
+User --> delivery
 verify <.. delivery : <<Extend>>
 
 User --> view
