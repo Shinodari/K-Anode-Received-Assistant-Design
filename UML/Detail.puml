@@ -1,0 +1,45 @@
+@startuml Class
+
+class KAnode{
+    -PartNo : String
+    -LotNo : String
+    -Quantity : Int
+}
+
+class Location{
+    -LocationID : Int
+    -LocationName : String
+}
+
+class Invoice{
+    -InvoiceNo : String
+    -Quantity : Int
+    -DeliveryDate : Date
+}
+
+enum ORIGIN{
+    AIR
+    TOKIN
+}
+class Receive{
+    -ReceiveId : int
+    -ReceiveToOracleDate : DateTime
+    +Origin : ORIGIN
+
+    
+}
+'ENUM of Receive'
+ORIGIN --* Receive
+'Association of Receive'
+
+class Verify
+
+class ImportWMS
+
+class ViewData
+
+class Export
+
+
+
+@enduml
