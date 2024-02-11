@@ -4,6 +4,8 @@ rectangle K-Anode-Received-Assistant {
     usecase "Receive K-Anode" as receive
     usecase "Verify Received" as verify
     usecase "Delivery before receiving" as delivery
+    usecase "Record" as record_delivery
+    usecase "Fetch" as view_delivery
     usecase "View Record" as view
     usecase "Export Data" as export
     usecase "Import Balance from WMS" as import
@@ -13,8 +15,11 @@ User --> receive
 receive ..> verify : <<Include>>
 verify ..> import : <<Include>>
 
-User --> delivery
-verify <.. delivery : <<Extend>>
+delivery -left-|> record_delivery
+delivery --|> view_delivery
+User --> record_delivery
+verify <.. record_delivery : <<Extend>>
+verify <.. view_delivery : <<Extend>>
 
 User --> view
 User --> export
