@@ -1,21 +1,53 @@
 @startuml Class
 
 class KAnode{
-    -PartNo : String
-    -LotNo : String
-    -Quantity : Int
-}
+    -PartNo : string
+    -LotNo : string
+    -Quantity : int
+    --
+    +KAnode(partNo : string, lotNo : string, quantity : int)
 
-class Location{
-    -LocationID : Int
-    -LocationName : String
+    +SetPartNo(partNo : string) : void
+    +GetPartNo() : string
+    +SetLotNo(lotNo : string) : void
+    +GetLotNo() : string
+    +SetQuantity(quantity : int) : void
+    +GetQuantity() : int
+
+    -CheckPatternOfPartNo(partNo : string) : bool
+    -CheckParternOfLotNo(lotNo : string) : bool
+    ==Pattern with Regex==
+    PartNo :
+    LotNo :
 }
 
 class Invoice{
-    -InvoiceNo : String
-    -Quantity : Int
+    -InvoiceNo : string
+    -Quantity : int
     -DeliveryDate : Date
+    -KAnodeLists : ArrayList
+
+    +Invoice()
+    +Invoice(invoiceNo : string)
+    +Invoice(invoiceNo : string, quantity : int)
+    +Invoice(invoiceNo : string, quantity : int, deliveryDate : Date)
+
+    +SetInvoice(invoiceNo : string) : void
+    +GetInvoice() : string
+    +SetQuantity(quantity : int) : void
+    +GetQuantity() : int
+    +SetDeliveryDate(deliveryDate : Date) : void
+    +GetDeliveryDate() : Date
+    +SetKAondeLists(kAnodeLists : ArrayList) : void
+    +GetKAnodeLists() : ArrayList
 }
+Invoice "1" *-- "1..*" KAnode
+
+class Location{
+    -LocationID : int
+    -LocationName : string
+}
+Location "1" <-- "0..*" KAnode : PutAway
 
 enum ORIGIN{
     AIR
@@ -31,6 +63,7 @@ class Receive{
 'ENUM of Receive'
 ORIGIN --* Receive
 'Association of Receive'
+(KAnode, Location) .. Receive
 
 class Verify
 
