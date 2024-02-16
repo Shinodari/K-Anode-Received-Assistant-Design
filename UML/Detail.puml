@@ -9,16 +9,21 @@ class KAnode{
 
     +SetPartNo(partNo : string) : void
     +GetPartNo() : string
+
     +SetLotNo(lotNo : string) : void
     +GetLotNo() : string
+
     +SetQuantity(quantity : int) : void
     +GetQuantity() : int
 
     -CheckPatternOfPartNo(partNo : string) : bool
     -CheckParternOfLotNo(lotNo : string) : bool
-    ==Pattern with Regex==
-    PartNo :
-    LotNo :
+    ==Regex==
+    Barcode : "(\\w{8})\\s+AN001(\\w{18})\\s+(\\d{7})MEXICO\\s+MX\\r?"
+    Result
+    Group1 : LotNo
+    Group2 : PartNo
+    Group3 : Quantity
 }
 
 class Invoice{
@@ -27,25 +32,49 @@ class Invoice{
     -DeliveryDate : Date
     -KAnodeList : ArrayList
 
-    +Invoice()
-    +Invoice(invoiceNo : string)
-    +Invoice(invoiceNo : string, quantity : int)
+    '+Invoice()
+    '+Invoice(invoiceNo : string)
+    '+Invoice(invoiceNo : string, quantity : int)
     +Invoice(invoiceNo : string, quantity : int, deliveryDate : Date)
 
-    +SetInvoice(invoiceNo : string) : void
-    +GetInvoice() : string
+    +SetInvoiceNo(invoiceNo : string) : void
+    +GetInvoiceNo() : string
+
     +SetQuantity(quantity : int) : void
     +GetQuantity() : int
+
     +SetDeliveryDate(deliveryDate : Date) : void
     +GetDeliveryDate() : Date
+
     +SetKAondeLists(kAnodeLists : ArrayList) : void
     +GetKAnodeList() : ArrayList
+
+    +Save() : void
 }
 Invoice "1" *-- "1..*" KAnode
 
 class Location{
-    -LocationID : int
-    -LocationName : string
+    -ID : int
+    -Name : string
+    --
+    +Location(id : int)
+    +Location(name : string)
+
+    +{static}New(name : string) : void
+    +{static}EditName(id : int) : void
+    +{static}RemoveByID(id : int) : void
+    +{static}RemoveByName(name : string) : void
+
+    +GetID() : int
+    +GetName() : string
+
+    +SetName(name : string) : void
+
+    -fetchData() : void
+
+    +PutAway() : void
+    ==Regex==
+    Pattern : ".\\s\\d-\\d+"
 }
 Location "1" <-- "0..*" KAnode : PutAway
 
@@ -58,7 +87,16 @@ class Receive{
     -ReceiveToOracleDate : DateTime
     +Origin : ORIGIN
 
-    
+    +Receive(receiveID : int, receiveToOracleDate : DateTime, origin : ORIGIN)
+
+    +SetReceiveID(receiveID : int) : void
+    +GetReceiveID() : int
+
+    +SetReceiveToOracleDate(receiveDate : DateTime) : void
+    +GetReceiveToOracleDate() : DateTime
+
+    +SetOrigin(origin : ORIGIN) : void
+    +GetOrigin() : ORIGIN
 }
 'ENUM of Receive'
 ORIGIN --* Receive
